@@ -3,7 +3,7 @@ BEGIN {
   $Dist::Zilla::Plugin::ContributorsFile::AUTHORITY = 'cpan:YANICK';
 }
 {
-  $Dist::Zilla::Plugin::ContributorsFile::VERSION = '0.1.0';
+  $Dist::Zilla::Plugin::ContributorsFile::VERSION = '0.2.0';
 }
 # ABSTRACT: add a file listing all contributors
 
@@ -32,7 +32,12 @@ has contributors => (
         my $self = shift;
 
         my ($p) = grep { ref $_ eq 'Dist::Zilla::Plugin::ContributorsFromGit' }  
-            @{$self->zilla->plugins} or die __PACKAGE__." requires ContributorsFromGit to work";
+            @{$self->zilla->plugins} or die <<'END';
+You need to have the plugin Dist::Zilla::Plugin::ContributorsFromGit in your 
+dist.ini for Dist::Zilla::Plugin::ContributorsFile to work. 
+
+See the POD of Dist::Zilla::Plugin::ContributorsFile for more details.
+END
         return [ @{$p->contributor_list} ];
     },
     handles => {
@@ -96,7 +101,7 @@ Dist::Zilla::Plugin::ContributorsFile - add a file listing all contributors
 
 =head1 VERSION
 
-version 0.1.0
+version 0.2.0
 
 =head1 SYNOPSIS
 

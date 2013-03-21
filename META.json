@@ -51,7 +51,7 @@
    "provides" : {
       "Dist::Zilla::Plugin::ContributorsFile" : {
          "file" : "lib/Dist/Zilla/Plugin/ContributorsFile.pm",
-         "version" : "v0.1.0"
+         "version" : "v0.2.0"
       }
    },
    "release_status" : "stable",
@@ -67,10 +67,13 @@
          "web" : "https://github.com/yanick/Dist-Zilla-Plugin-ContributorsFile"
       }
    },
-   "version" : "0.1.0",
+   "version" : "0.2.0",
    "x_author_pledge" : {
       "version" : 1
    },
-   "x_authority" : "cpan:YANICK"
+   "x_authority" : "cpan:YANICK",
+   "x_contributors" : [
+      "Olaf Alders <olaf@wundersolutions.com>"
+   ]
 }
 
