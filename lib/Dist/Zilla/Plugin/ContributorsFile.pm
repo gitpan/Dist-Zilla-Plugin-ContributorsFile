@@ -2,11 +2,8 @@ package Dist::Zilla::Plugin::ContributorsFile;
 BEGIN {
   $Dist::Zilla::Plugin::ContributorsFile::AUTHORITY = 'cpan:YANICK';
 }
-{
-  $Dist::Zilla::Plugin::ContributorsFile::VERSION = '0.2.0';
-}
 # ABSTRACT: add a file listing all contributors
-
+$Dist::Zilla::Plugin::ContributorsFile::VERSION = '0.2.1';
 use strict;
 use warnings;
 
@@ -16,6 +13,8 @@ use Dist::Zilla::File::InMemory;
 with qw/
     Dist::Zilla::Role::Plugin
     Dist::Zilla::Role::FileGatherer
+    Dist::Zilla::Role::FileMunger
+    Dist::Zilla::Role::FilePruner
     Dist::Zilla::Role::TextTemplate
 /;
 
@@ -30,15 +29,7 @@ has contributors => (
     lazy => 1, 
     default => sub {
         my $self = shift;
-
-        my ($p) = grep { ref $_ eq 'Dist::Zilla::Plugin::ContributorsFromGit' }  
-            @{$self->zilla->plugins} or die <<'END';
-You need to have the plugin Dist::Zilla::Plugin::ContributorsFromGit in your 
-dist.ini for Dist::Zilla::Plugin::ContributorsFile to work. 
-
-See the POD of Dist::Zilla::Plugin::ContributorsFile for more details.
-END
-        return [ @{$p->contributor_list} ];
+        return $self->zilla->distmeta->{x_contributors};
     },
     handles => {
         has_contributors => 'count',
@@ -46,21 +37,29 @@ END
     },
 );
 
-sub gather_files {
-    my $self = shift;
+sub munge_file {
+    my( $self, $file ) = @_;
 
     unless ( $self->has_contributors ) {
         return $self->log( 'no contributor detected, skipping file' );
     }
 
-    my $content = $self->fill_in_string(
-        $self->contributors_template(), {   
-            distribution        => uc $self->zilla->name,
+    return unless $file->name eq $self->filename;
+
+    $file->content( $self->fill_in_string(
+        $file->content, {
+            distribution => uc $self->zilla->name,
+            contributors => [ $self->all_contributors ],
         }
-    );
+    ));
+
+}
+
+sub gather_files {
+    my $self = shift;
 
     my $file = Dist::Zilla::File::InMemory->new({ 
-            content => $content,
+            content => $self->contributors_template,
             name    => $self->filename,
         }
     );
@@ -68,10 +67,15 @@ sub gather_files {
     $self->add_file($file);
 }
 
-sub contributors_template {
+sub prune_files {
     my $self = shift;
 
-    my $text = <<'END_CONT';
+    $self->zilla->prune_file( $self->filename )
+        unless $self->has_contributors;
+}
+
+sub contributors_template {
+    return <<'END_CONT';
 
 # {{$distribution}} CONTRIBUTORS #
 
@@ -80,11 +84,14 @@ make this distribution what it is, either via code contributions,
 patches, bug reports, help with troubleshooting, etc. A huge
 thank to all of them.
 
+{{ 
+    for my $contributor ( @contributors ) {
+        $OUT .= "    * $contributor\n";
+    } 
+}}
+
 END_CONT
 
-    $text .= "\t* $_\n" for $self->all_contributors;
-
-    return $text;
 }
 
 __PACKAGE__->meta->make_immutable;
@@ -95,18 +102,21 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Dist::Zilla::Plugin::ContributorsFile - add a file listing all contributors
 
 =head1 VERSION
 
-version 0.2.0
+version 0.2.1
 
 =head1 SYNOPSIS
 
 In dist.ini:
 
+    " any plugin populating x_contributors in the META files
     [ContributorsFromGit]
 
     [ContributorsFile]
@@ -116,8 +126,8 @@ In dist.ini:
 
 C<Dist::Zilla::Plugin::ContributorsFile> populates a I<CONTRIBUTORS> file
 with all the contributors of the project as found by
-C<Dist::Zilla::Plugin::ContributorsFromGit> (which also need to be present in
-your C<dist.ini>).
+C<Dist::Zilla::Plugin::ContributorsFromGit> (or any other plugin populating 
+the I<x_contributors> in the META files).
 
 The generated file will look like this:
 
@@ -131,8 +141,8 @@ The generated file will look like this:
         * Albert Zoot <zoo@foo.com>
         * Bertrand Maxwell <maxwell@bar.com>
 
-Note that if no contributor is detected beside the actual author of the
-module, the file will not be created. 
+Note that if no contributors beside the actual author(s) are found,
+the file will not be created. 
 
 =head1 CONFIGURATION OPTIONS
 

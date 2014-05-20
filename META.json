@@ -4,7 +4,7 @@
       "Yanick Champoux <yanick@cpan.org>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Dist::Zilla version 4.300030, CPAN::Meta::Converter version 2.120921",
+   "generated_by" : "Dist::Zilla version 5.016, CPAN::Meta::Converter version 2.140640",
    "license" : [
       "perl_5"
    ],
@@ -33,6 +33,8 @@
          "requires" : {
             "Dist::Zilla::File::InMemory" : "0",
             "Dist::Zilla::Role::FileGatherer" : "0",
+            "Dist::Zilla::Role::FileMunger" : "0",
+            "Dist::Zilla::Role::FilePruner" : "0",
             "Dist::Zilla::Role::Plugin" : "0",
             "Dist::Zilla::Role::TextTemplate" : "0",
             "Moose" : "0",
@@ -42,23 +44,24 @@
       },
       "test" : {
          "requires" : {
-            "File::Find" : "0",
-            "File::Temp" : "0",
-            "Test::More" : "0.88"
+            "File::Spec" : "0",
+            "IO::Handle" : "0",
+            "IPC::Open3" : "0",
+            "Test::More" : "0.88",
+            "perl" : "5.006"
          }
       }
    },
    "provides" : {
       "Dist::Zilla::Plugin::ContributorsFile" : {
          "file" : "lib/Dist/Zilla/Plugin/ContributorsFile.pm",
-         "version" : "v0.2.0"
+         "version" : "v0.2.1"
       }
    },
    "release_status" : "stable",
    "resources" : {
       "bugtracker" : {
-         "mailto" : "bug-dist-zilla-plugin-contributorsfile at rt.cpan.org",
-         "web" : "http://rt.cpan.org/Public/Dist/Display.html?Name=Dist-Zilla-Plugin-ContributorsFile"
+         "web" : "https://github.com/yanick/Dist-Zilla-Plugin-ContributorsFile/issues"
       },
       "homepage" : "http://search.cpan.org/dist/Dist-Zilla-Plugin-ContributorsFile/",
       "repository" : {
@@ -67,13 +70,15 @@
          "web" : "https://github.com/yanick/Dist-Zilla-Plugin-ContributorsFile"
       }
    },
-   "version" : "0.2.0",
+   "version" : "0.2.1",
    "x_author_pledge" : {
       "version" : 1
    },
    "x_authority" : "cpan:YANICK",
    "x_contributors" : [
-      "Olaf Alders <olaf@wundersolutions.com>"
+      "Karen Etheridge <ether@cpan.org>",
+      "Olaf Alders <olaf@wundersolutions.com>",
+      "Slaven Rezic <srezic@cpan.org>"
    ]
 }
 

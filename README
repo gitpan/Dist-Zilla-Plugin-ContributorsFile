@@ -3,11 +3,12 @@ NAME
     contributors
 
 VERSION
-    version 0.2.0
+    version 0.2.1
 
 SYNOPSIS
     In dist.ini:
 
+        " any plugin populating x_contributors in the META files
         [ContributorsFromGit]
 
         [ContributorsFile]
@@ -16,8 +17,8 @@ SYNOPSIS
 DESCRIPTION
     "Dist::Zilla::Plugin::ContributorsFile" populates a *CONTRIBUTORS* file
     with all the contributors of the project as found by
-    "Dist::Zilla::Plugin::ContributorsFromGit" (which also need to be
-    present in your "dist.ini").
+    "Dist::Zilla::Plugin::ContributorsFromGit" (or any other plugin
+    populating the *x_contributors* in the META files).
 
     The generated file will look like this:
 
@@ -31,8 +32,8 @@ DESCRIPTION
             * Albert Zoot <zoo@foo.com>
             * Bertrand Maxwell <maxwell@bar.com>
 
-    Note that if no contributor is detected beside the actual author of the
-    module, the file will not be created.
+    Note that if no contributors beside the actual author(s) are found, the
+    file will not be created.
 
 CONFIGURATION OPTIONS
   filename

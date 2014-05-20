@@ -1,5 +1,14 @@
 Revision history for Dist-Zilla-Plugin-ContributorsFile
 
+0.2.1 2014-05-19
+ [BUG FIXES]
+ - Use 'x_contributors' instead of dumpster-diving in other peoples'
+   modules. (RT95626, reported by Slaven Rezic, lots of help from Karen
+   Etheridge).
+
+ [STATISTICS]
+ - code churn: 3 files changed, 42 insertions(+), 28 deletions(-)
+
 0.2.0 2013-03-20
  [ENHANCEMENTS]
  - Clarify the message if ContributorsFromGit is not present. [GH#1]
