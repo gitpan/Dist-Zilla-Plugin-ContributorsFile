@@ -4,7 +4,7 @@ Dist::Zilla::Plugin::ContributorsFile - add a file listing all contributors
 
 # VERSION
 
-version 0.2.3
+version 0.2.4
 
 # SYNOPSIS
 

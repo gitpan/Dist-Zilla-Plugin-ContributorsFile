@@ -3,7 +3,7 @@ BEGIN {
   $Dist::Zilla::Plugin::ContributorsFile::AUTHORITY = 'cpan:YANICK';
 }
 # ABSTRACT: add a file listing all contributors
-$Dist::Zilla::Plugin::ContributorsFile::VERSION = '0.2.3';
+$Dist::Zilla::Plugin::ContributorsFile::VERSION = '0.2.4';
 use strict;
 use warnings;
 
@@ -73,7 +73,7 @@ sub prune_files {
 
     $self->log( 'no contributors, pruning file' );
 
-    for my $file ( grep { $_ eq $self->filename } @{ $self->zilla->files } ) {
+    for my $file ( grep { $_->name eq $self->filename } @{ $self->zilla->files } ) {
         $self->zilla->prune_file($file);
     }
 
@@ -115,7 +115,7 @@ Dist::Zilla::Plugin::ContributorsFile - add a file listing all contributors
 
 =head1 VERSION
 
-version 0.2.3
+version 0.2.4
 
 =head1 SYNOPSIS
 
