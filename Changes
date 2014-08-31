@@ -1,5 +1,12 @@
 Revision history for Dist-Zilla-Plugin-ContributorsFile
 
+0.2.2 2014-08-31
+ [BUG FIXES]
+ - Gracefully deal with a total lack of contributors.
+
+ [STATISTICS]
+ - code churn: 2 files changed, 34 insertions(+), 13 deletions(-)
+
 0.2.1 2014-05-19
  [BUG FIXES]
  - Use 'x_contributors' instead of dumpster-diving in other peoples'

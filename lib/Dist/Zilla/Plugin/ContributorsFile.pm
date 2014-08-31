@@ -3,7 +3,7 @@ BEGIN {
   $Dist::Zilla::Plugin::ContributorsFile::AUTHORITY = 'cpan:YANICK';
 }
 # ABSTRACT: add a file listing all contributors
-$Dist::Zilla::Plugin::ContributorsFile::VERSION = '0.2.1';
+$Dist::Zilla::Plugin::ContributorsFile::VERSION = '0.2.2';
 use strict;
 use warnings;
 
@@ -29,7 +29,7 @@ has contributors => (
     lazy => 1, 
     default => sub {
         my $self = shift;
-        return $self->zilla->distmeta->{x_contributors};
+        return $self->zilla->distmeta->{x_contributors} || [];
     },
     handles => {
         has_contributors => 'count',
@@ -40,11 +40,10 @@ has contributors => (
 sub munge_file {
     my( $self, $file ) = @_;
 
-    unless ( $self->has_contributors ) {
-        return $self->log( 'no contributor detected, skipping file' );
-    }
-
     return unless $file->name eq $self->filename;
+
+    return $self->log( 'no contributor detected, skipping file' )
+        unless $self->has_contributors;
 
     $file->content( $self->fill_in_string(
         $file->content, {
@@ -70,8 +69,16 @@ sub gather_files {
 sub prune_files {
     my $self = shift;
 
-    $self->zilla->prune_file( $self->filename )
-        unless $self->has_contributors;
+    return if $self->has_contributors;
+
+    $self->log( 'no contributors, pruning file' );
+
+    die ref $_ for @{ $self->zilla->files };
+    for my $file ( grep { $_ eq $self->filename } @{ $self->zilla->files } ) {
+        die ref $file;
+        $self->zilla->prune_file($file);
+    }
+
 }
 
 sub contributors_template {
@@ -110,7 +117,7 @@ Dist::Zilla::Plugin::ContributorsFile - add a file listing all contributors
 
 =head1 VERSION
 
-version 0.2.1
+version 0.2.2
 
 =head1 SYNOPSIS
 
