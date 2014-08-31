@@ -1,5 +1,12 @@
 Revision history for Dist-Zilla-Plugin-ContributorsFile
 
+0.2.3 2014-08-31
+ [BUG FIXES]
+ - Forgot the 'die' debug statements. Aaaugh.
+
+ [STATISTICS]
+ - code churn: 2 files changed, 8 insertions(+), 3 deletions(-)
+
 0.2.2 2014-08-31
  [BUG FIXES]
  - Gracefully deal with a total lack of contributors.
