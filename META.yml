@@ -21,7 +21,7 @@ name: Dist-Zilla-Plugin-ContributorsFile
 provides:
   Dist::Zilla::Plugin::ContributorsFile:
     file: lib/Dist/Zilla/Plugin/ContributorsFile.pm
-    version: v0.2.5
+    version: v0.2.6
 requires:
   Dist::Zilla::File::InMemory: '0'
   Dist::Zilla::Role::FileGatherer: '0'
@@ -36,7 +36,7 @@ resources:
   bugtracker: https://github.com/yanick/Dist-Zilla-Plugin-ContributorsFile/issues
   homepage: http://search.cpan.org/dist/Dist-Zilla-Plugin-ContributorsFile/
   repository: https://github.com/yanick/Dist-Zilla-Plugin-ContributorsFile.git
-version: 0.2.5
+version: 0.2.6
 x_author_pledge:
   version: 1
 x_authority: cpan:YANICK

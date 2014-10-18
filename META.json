@@ -55,7 +55,7 @@
    "provides" : {
       "Dist::Zilla::Plugin::ContributorsFile" : {
          "file" : "lib/Dist/Zilla/Plugin/ContributorsFile.pm",
-         "version" : "v0.2.5"
+         "version" : "v0.2.6"
       }
    },
    "release_status" : "stable",
@@ -70,7 +70,7 @@
          "web" : "https://github.com/yanick/Dist-Zilla-Plugin-ContributorsFile"
       }
    },
-   "version" : "0.2.5",
+   "version" : "0.2.6",
    "x_author_pledge" : {
       "version" : 1
    },

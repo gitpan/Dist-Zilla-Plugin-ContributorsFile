@@ -3,7 +3,7 @@ BEGIN {
   $Dist::Zilla::Plugin::ContributorsFile::AUTHORITY = 'cpan:YANICK';
 }
 # ABSTRACT: add a file listing all contributors
-$Dist::Zilla::Plugin::ContributorsFile::VERSION = '0.2.5';
+$Dist::Zilla::Plugin::ContributorsFile::VERSION = '0.2.6';
 use strict;
 use warnings;
 
@@ -26,7 +26,7 @@ has filename => (
 has contributors => (
     traits => [ 'Array' ],
     isa => 'ArrayRef',
-    lazy => 1, 
+    lazy => 1,
     default => sub {
         my $self = shift;
         return $self->zilla->distmeta->{x_contributors} || [];
@@ -115,14 +115,14 @@ Dist::Zilla::Plugin::ContributorsFile - add a file listing all contributors
 
 =head1 VERSION
 
-version 0.2.5
+version 0.2.6
 
 =head1 SYNOPSIS
 
 In dist.ini:
 
     " any plugin populating x_contributors in the META files
-    [ContributorsFromGit]
+    [Git::Contributors]
 
     [ContributorsFile]
     filename = CONTRIBUTORS
@@ -130,9 +130,8 @@ In dist.ini:
 =head1 DESCRIPTION
 
 C<Dist::Zilla::Plugin::ContributorsFile> populates a I<CONTRIBUTORS> file
-with all the contributors of the project as found by
-C<Dist::Zilla::Plugin::ContributorsFromGit> (or any other plugin populating 
-the I<x_contributors> in the META files).
+with all the contributors of the project as found under the
+I<x_contributors> key in the META files.
 
 The generated file will look like this:
 
@@ -170,11 +169,17 @@ directly, you can use empty git commits:
 
     git commit --allow-empty --author="David Golden <dagolden@cpan.org>" -m "..."
 
+To populate the META file with the C<x_contributors>, you probably want to use
+either L<Dist::Zilla::Plugin::Git::Contributors> or
+L<Dist::Zilla::Plugin::ContributorsFromGit>.
+
 =head1 SEE ALSO
 
 L<Dist::Zilla::Plugin::ContributorsFromGit>
 
-L<http://p3rl.org/Pod::Weaver::Section::Contributors>
+L<Dist::Zilla::Plugin::Git::Contributors>
+
+L<Pod::Weaver::Section::Contributors>
 
 =head1 AUTHOR
 
