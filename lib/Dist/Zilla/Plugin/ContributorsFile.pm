@@ -3,7 +3,7 @@ BEGIN {
   $Dist::Zilla::Plugin::ContributorsFile::AUTHORITY = 'cpan:YANICK';
 }
 # ABSTRACT: add a file listing all contributors
-$Dist::Zilla::Plugin::ContributorsFile::VERSION = '0.2.4';
+$Dist::Zilla::Plugin::ContributorsFile::VERSION = '0.2.5';
 use strict;
 use warnings;
 
@@ -87,7 +87,7 @@ sub contributors_template {
 This is the (likely incomplete) list of people who have helped
 make this distribution what it is, either via code contributions, 
 patches, bug reports, help with troubleshooting, etc. A huge
-thank to all of them.
+'thank you' to all of them.
 
 {{ 
     for my $contributor ( @contributors ) {
@@ -115,7 +115,7 @@ Dist::Zilla::Plugin::ContributorsFile - add a file listing all contributors
 
 =head1 VERSION
 
-version 0.2.4
+version 0.2.5
 
 =head1 SYNOPSIS
 
@@ -141,7 +141,7 @@ The generated file will look like this:
     This is the (likely incomplete) list of people who have helped
     make this distribution what it is, either via code contributions, 
     patches, bug reports, help with troubleshooting, etc. A huge
-    thank to all of them.
+    'thank you' to all of them.
 
         * Albert Zoot <zoo@foo.com>
         * Bertrand Maxwell <maxwell@bar.com>
