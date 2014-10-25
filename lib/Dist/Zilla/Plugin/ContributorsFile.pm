@@ -3,7 +3,7 @@ BEGIN {
   $Dist::Zilla::Plugin::ContributorsFile::AUTHORITY = 'cpan:YANICK';
 }
 # ABSTRACT: add a file listing all contributors
-$Dist::Zilla::Plugin::ContributorsFile::VERSION = '0.2.6';
+$Dist::Zilla::Plugin::ContributorsFile::VERSION = '0.3.0';
 use strict;
 use warnings;
 
@@ -29,7 +29,10 @@ has contributors => (
     lazy => 1,
     default => sub {
         my $self = shift;
-        return $self->zilla->distmeta->{x_contributors} || [];
+        return [ map {
+                Dist::Zilla::Plugin::ContributorsFile::Contributor->new($_) 
+            } @{ $self->zilla->distmeta->{x_contributors} || [] }
+        ];
     },
     handles => {
         has_contributors => 'count',
@@ -91,7 +94,7 @@ patches, bug reports, help with troubleshooting, etc. A huge
 
 {{ 
     for my $contributor ( @contributors ) {
-        $OUT .= "    * $contributor\n";
+        $OUT .= sprintf "    * %s\n", $contributor->name;
     } 
 }}
 
@@ -101,6 +104,32 @@ END_CONT
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
+
+package
+    Dist::Zilla::Plugin::ContributorsFile::Contributor;
+
+use overload 
+    '""' => sub { sprintf "%s <%s>", @$_ };
+
+sub new {
+    my $class = shift;
+
+    my @self;
+
+    if( @_ == 2 ) {
+        @self = @_;
+    }
+    else {
+        @self = shift =~ /^\s*(.*?)\s*<(.*?)>\s*$/
+    }
+
+    return bless \@self, $class;
+}
+
+sub name  { $_[0][0] }
+sub email { $_[0][1] }
+
+
 1;
 
 __END__
@@ -115,7 +144,7 @@ Dist::Zilla::Plugin::ContributorsFile - add a file listing all contributors
 
 =head1 VERSION
 
-version 0.2.6
+version 0.3.0
 
 =head1 SYNOPSIS
 
@@ -142,11 +171,11 @@ The generated file will look like this:
     patches, bug reports, help with troubleshooting, etc. A huge
     'thank you' to all of them.
 
-        * Albert Zoot <zoo@foo.com>
-        * Bertrand Maxwell <maxwell@bar.com>
+        * Albert Zoot
+        * Bertrand Maxwell
 
 Note that if no contributors beside the actual author(s) are found,
-the file will not be created. 
+the file will not be created.
 
 =head1 CONFIGURATION OPTIONS
 

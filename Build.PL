@@ -18,7 +18,7 @@ my %module_build_args = (
     "Yanick Champoux <yanick\@cpan.org>"
   ],
   "dist_name" => "Dist-Zilla-Plugin-ContributorsFile",
-  "dist_version" => "0.2.6",
+  "dist_version" => "0.3.0",
   "license" => "perl",
   "module_name" => "Dist::Zilla::Plugin::ContributorsFile",
   "recommends" => {},
@@ -31,6 +31,7 @@ my %module_build_args = (
     "Dist::Zilla::Role::Plugin" => 0,
     "Dist::Zilla::Role::TextTemplate" => 0,
     "Moose" => 0,
+    "overload" => 0,
     "strict" => 0,
     "warnings" => 0
   },

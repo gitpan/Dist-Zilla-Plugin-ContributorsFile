@@ -5,6 +5,7 @@ requires "Dist::Zilla::Role::FilePruner" => "0";
 requires "Dist::Zilla::Role::Plugin" => "0";
 requires "Dist::Zilla::Role::TextTemplate" => "0";
 requires "Moose" => "0";
+requires "overload" => "0";
 requires "strict" => "0";
 requires "warnings" => "0";
 

@@ -3,7 +3,7 @@ NAME
     contributors
 
 VERSION
-    version 0.2.6
+    version 0.3.0
 
 SYNOPSIS
     In dist.ini:
@@ -28,8 +28,8 @@ DESCRIPTION
         patches, bug reports, help with troubleshooting, etc. A huge
         'thank you' to all of them.
 
-            * Albert Zoot <zoo@foo.com>
-            * Bertrand Maxwell <maxwell@bar.com>
+            * Albert Zoot
+            * Bertrand Maxwell
 
     Note that if no contributors beside the actual author(s) are found, the
     file will not be created.

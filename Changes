@@ -1,5 +1,13 @@
 Revision history for Dist-Zilla-Plugin-ContributorsFile
 
+0.3.0 2014-10-25
+ [ENHANCEMENTS]
+ - Don't print out the emails in the CONTRIBUTORS file, as it seems spammer
+   harvest those. (GH#5)
+
+ [STATISTICS]
+ - code churn: 2 files changed, 43 insertions(+), 6 deletions(-)
+
 0.2.6 2014-10-18
  [DOCUMENTATION]
  - Improve the SEE ALSO section. (GH#3, Karen Etheridge)

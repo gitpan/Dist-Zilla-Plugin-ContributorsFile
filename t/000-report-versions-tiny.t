@@ -60,6 +60,7 @@ eval { $v .= pmver('IPC::Open3','any version') };
 eval { $v .= pmver('Module::Build','0.28') };
 eval { $v .= pmver('Moose','any version') };
 eval { $v .= pmver('Test::More','0.88') };
+eval { $v .= pmver('overload','any version') };
 eval { $v .= pmver('strict','any version') };
 eval { $v .= pmver('warnings','any version') };
 
